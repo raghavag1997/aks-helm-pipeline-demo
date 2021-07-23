@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app:  {{ .Release.Name | quote  }}
+  name: {{ .Release.Name }}-890-data-exchange
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name | quote  }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name | quote  }}
+    spec:
+      containers:
+        -
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          name: {{ .Release.Name  }}-container
+          ports:
+            -
+              containerPort: 1111
+          volumeMounts:
+          - mountPath: "/java-project/data"
+            name: volume
+      volumes:
+       - name: volume
+         persistentVolumeClaim:
+           claimName: {{ .Release.Name }}-890
+

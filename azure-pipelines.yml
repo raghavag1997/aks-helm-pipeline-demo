@@ -5,7 +5,35 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+   registryName: 'helmjava'
+
 steps:
 - template: templates/build.yaml
   parameters:
     buildConfiguration: 'install'
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'My ACR Connection'
+    repository: $(registryName)
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+    addPipelineData: false
+    addBaseImageData: false
+  displayName: 'Bulding and Publishing Docker Image to ACR'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'helm'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    CleanTargetFolder: true
+    OverWrite: true
+  displayName: 'Copying Contents'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: 'myartificats'
+  displayName: 'Publishing Artificats'
