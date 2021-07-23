@@ -1,12 +1,11 @@
 replicaCount: 1
-storageClassName: managed-premium
 image:
-  repository: 890privatereg.azurecr.io/890dataexchange
-  tag: 2
+  repository: myazuredevopsprac.azurecr.io/helmjava
+  tag: 35
   imagePullPolicy: IfNotPresent
 service:
   enabled: true
   type: LoadBalancer
   port: 80
-  targetPort: 1111
+  targetPort: 8080
   protocol: TCP

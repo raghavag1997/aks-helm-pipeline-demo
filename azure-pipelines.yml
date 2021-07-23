@@ -20,6 +20,8 @@ steps:
       Dockerfile: "**/Dockerfile"
       addPipelineData: false
       addBaseImageData: false
+      tags: |
+         $(Build.BuildNumber)
     displayName: "Bulding and Publishing Docker Image to ACR"
 
   - task: CopyFiles@2

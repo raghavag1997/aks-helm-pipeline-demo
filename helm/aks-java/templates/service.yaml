@@ -2,9 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-890-data-exchange-service
-  labels:
-      spring-boot: "true"
+  name: {{ .Release.Name }}-service
   annotations:
           service.beta.kubernetes.io/azure-load-balancer-tcp-idle-timeout: "30"
 spec:
@@ -13,9 +11,6 @@ spec:
   ports:
     - name: http
       port: 80
-      targetPort: {{ .Values.service.targetPort }}
-    - name: https
-      port: 443
       targetPort: {{ .Values.service.targetPort }}
   type: {{ .Values.service.type }}
 {{- end }}
