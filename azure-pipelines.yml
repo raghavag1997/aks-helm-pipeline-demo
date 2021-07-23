@@ -1,0 +1,12 @@
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- template: templates/build.yaml
+  parameters:
+    buildConfiguration: 'install'
+  displayName: 'Bulding the code'
