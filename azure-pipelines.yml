@@ -38,3 +38,19 @@ steps:
       PathtoPublish: "$(Build.ArtifactStagingDirectory)"
       artifactName: "myartificats"
     displayName: "Publishing Artificats"
+
+
+#Release pipeline for above
+
+# # steps:
+# # - task: HelmDeploy@0
+#   displayName: 'helm upgrade'
+#   inputs:
+#     connectionType: 'Kubernetes Service Connection'
+#     kubernetesServiceConnection: 'my k8 Connection'
+#     command: upgrade
+#     chartType: FilePath
+#     chartPath: '$(System.DefaultWorkingDirectory)/_raghavag1997.aks-helm-pipeline-demo/myartificats/aks-java'
+#     releaseName: myjavachart
+#     overrideValues: 'image.tag=$(Build.BuildNumber)'
+#     valueFile: '$(System.DefaultWorkingDirectory)/_raghavag1997.aks-helm-pipeline-demo/myartificats/aks-java/values.yaml'
